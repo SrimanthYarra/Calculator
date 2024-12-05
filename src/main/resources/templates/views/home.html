@@ -9,19 +9,23 @@
 <body>
     <h1>Calculator</h1>
     <form  th:action="@{/calculate}" th:object="${calculationattributes}" method="get">
+        <div >
+            <label>Email Id:</label>
+            <input type="text" th:field="*{emailId}" />
+        </div>
         <div>
             <label>First Parameter: </label>
-            <input type="number" step="any" placeholder="Enter a number" th:field="*{firstParameter}"/>
+            <input type="number" step="any" placeholder="Enter a number"  th:field="*{firstParameter}" required/>
         </div>
         <div>
             <label>operation: </label>
-            <select th:field="*{operation}">
+            <select th:field="*{operation}" required>
                 <option th:each="operation : ${operations}" th:value="${operation}" th:text="${operation}"></option>
             </select>
         </div>
         <div>
             <label>Second Parameter: </label>
-            <input type="number" step="any" placeholder="Enter a number"  th:field="*{secondParameter}"/>
+            <input type="number" step="any" placeholder="Enter a number"  th:field="*{secondParameter}" required/>
         </div>
         <div>
             <button type="submit">Calculate</button>

@@ -2,10 +2,19 @@ package org.example.calculator.ModelDtos;
 
 public class CalculationAttributes {
 
+    private String emailId;
     private float firstParameter;
-    private char operation;
+    private String operation;
     private float secondParameter;
-    private float result;
+
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 
     public float getFirstParameter() {
         return firstParameter;
@@ -15,11 +24,11 @@ public class CalculationAttributes {
         this.firstParameter = firstParameter;
     }
 
-    public char getOperation() {
+    public String getOperation() {
         return operation;
     }
 
-    public void setOperation(char operation) {
+    public void setOperation(String operation) {
         this.operation = operation;
     }
 
@@ -31,12 +40,6 @@ public class CalculationAttributes {
         this.secondParameter = secondParameter;
     }
 
-    public float getResult() {
-        return result;
-    }
 
-    public void setResult(float result) {
-        this.result = result;
-    }
 
 }

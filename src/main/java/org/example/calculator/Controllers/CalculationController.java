@@ -1,5 +1,6 @@
 package org.example.calculator.Controllers;
 
+import jakarta.mail.MessagingException;
 import org.example.calculator.ModelDtos.CalculationAttributes;
 import org.example.calculator.Services.CalculatorService;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,8 @@ public class CalculationController {
 
     @GetMapping
     public String EndResult(@ModelAttribute("calculationattributes") CalculationAttributes
-                                        calculationattributes, Model model) {
-        model.addAttribute("output",""+calculatorService.output(calculationattributes));
+                                        calculationattributes, Model model) throws MessagingException {
+        model.addAttribute("output",""+calculatorService.generateOutput(calculationattributes));
         return "success";
     }
 }

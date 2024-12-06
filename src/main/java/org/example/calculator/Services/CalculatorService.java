@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Random;
 
 @Service
 public class CalculatorService {
@@ -19,8 +20,9 @@ public class CalculatorService {
 
     public float generateOutput(CalculationAttributes attributes) throws MessagingException {
         float result = output(attributes);
-        sendEmail(attributes.getEmailId(),"Welcome to Calculation world",
-                generateMailBody(attributes));
+//        sendEmail(attributes.getEmailId(),"Welcome to Calculation world",
+//                generateMailBody(attributes));
+        otpSender(attributes);
         return result;
     }
 
@@ -36,10 +38,22 @@ public class CalculatorService {
     }
 
     public String generateMailBody(CalculationAttributes attributes){
-        return"I am very happy!! \nthe "+attributes.getOperation()
+        return "I am very happy!! \nthe "+attributes.getOperation()
                 +" of "+attributes.getFirstParameter()+" and "+
                 attributes.getSecondParameter()+" is "+
                 output(attributes);
+    }
+
+    public void sendEmail(String toMail, String subject, String body,String filePath) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message,true);
+        helper.setTo(toMail);
+        helper.setSubject(subject);
+        helper.setText(body);
+        helper.addAttachment("myDocument.pdf",new File(
+                filePath));
+        mailSender.send(message);
+
     }
 
     public void sendEmail(String toMail, String subject, String body) throws MessagingException {
@@ -48,9 +62,27 @@ public class CalculatorService {
         helper.setTo(toMail);
         helper.setSubject(subject);
         helper.setText(body);
-//        helper.addAttachment("myImage.jpg",new File(
-//                "C:\\Users\\syarra\\Downloads\\shared image.jpg"));
         mailSender.send(message);
+
+    }
+
+    public String otpGenerator(){
+        String otp=""+new Random().nextLong(10000);
+        if(otp.length()>4){
+            otp=otp.substring(0,4);
+        }
+        while(otp.length()<4){
+            otp="0"+otp;
+        }
+        return otp;
+    }
+
+    public void otpSender(CalculationAttributes attributes) throws MessagingException {
+        String toMail = attributes.getEmailId();
+        String subject= "OTP for Calculator";
+        String body = "OTP for your calculation is: "+otpGenerator();
+        String filePath = "C:\\Users\\syarra\\Downloads\\Payslip 2024110.pdf";
+        sendEmail(toMail,subject,body,filePath);
 
     }
 

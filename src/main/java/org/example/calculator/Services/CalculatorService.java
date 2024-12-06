@@ -80,8 +80,7 @@ public class CalculatorService {
         String toMail = attributes.getEmailId();
         String subject= "OTP for Calculator";
         String body = "OTP for your calculation is: "+otpGenerator();
-        String filePath = "C:\\Users\\syarra\\Downloads\\Payslip 2024110.pdf";
-        sendEmail(toMail,subject,body,filePath);
+        sendEmail(toMail,subject,body);
 
     }
 

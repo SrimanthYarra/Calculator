@@ -4,7 +4,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.example.calculator.ModelDtos.CalculationAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -72,7 +71,7 @@ public class CalculatorService {
             otp=otp.substring(0,4);
         }
         while(otp.length()<4){
-            otp="0"+otp;
+            otp= "0".concat(otp);
         }
         return otp;
     }
